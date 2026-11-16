@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_pos_category_tree_view_inherit_arrows" model="ir.ui.view">
+        <field name="name">pos.category.view.list.arrows</field>
+        <field name="model">pos.category</field>
+        <field name="inherit_id" ref="point_of_sale.product_pos_category_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="sequence" position="before">
+                <button name="action_category_sequence_top"
+                        string="Move to Top"
+                        type="object"
+                        icon="keyboard_double_arrow_up"
+                        class="p-0 border-0 text-muted"
+                        groups="point_of_sale.group_pos_user"
+                        title="Move to Top"/>
+                <button name="action_category_sequence_up"
+                        string="Move Up"
+                        type="object"
+                        icon="arrow_upward"
+                        class="p-0 border-0"
+                        groups="point_of_sale.group_pos_user"
+                        title="Move Up"/>
+                <button name="action_category_sequence_down"
+                        string="Move Down"
+                        type="object"
+                        icon="arrow_downward"
+                        class="p-0 border-0"
+                        groups="point_of_sale.group_pos_user"
+                        title="Move Down"/>
+                <button name="action_category_sequence_bottom"
+                        string="Move to Bottom"
+                        type="object"
+                        icon="keyboard_double_arrow_down"
+                        class="p-0 border-0 text-muted"
+                        groups="point_of_sale.group_pos_user"
+                        title="Move to Bottom"/>
+            </field>
+        </field>
+    </record>
+</odoo>

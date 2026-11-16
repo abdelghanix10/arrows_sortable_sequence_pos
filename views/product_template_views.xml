@@ -1,26 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <!-- POS Product List View: Add Top, Up, Down, Bottom Arrow Buttons -->
     <record id="product_template_tree_view_point_of_sale_inherit" model="ir.ui.view">
         <field name="name">product.template.view.list.point_of_sale.arrows</field>
         <field name="model">product.template</field>
         <field name="inherit_id" ref="point_of_sale.product_template_tree_view_point_of_sale"/>
         <field name="arch" type="xml">
             <field name="pos_sequence" position="before">
-                <button name="action_pos_sequence_up" 
-                        string="Move Up" 
-                        type="object" 
-                        icon="oi-arrow-up" 
+                <button name="action_pos_sequence_top"
+                        string="Move to Top"
+                        type="object"
+                        icon="keyboard_double_arrow_up"
+                        class="p-0 border-0 text-muted"
+                        groups="point_of_sale.group_pos_user"
+                        title="Move to Top"/>
+                <button name="action_pos_sequence_up"
+                        string="Move Up"
+                        type="object"
+                        icon="arrow_upward"
                         class="p-0 border-0"
                         groups="point_of_sale.group_pos_user"
                         title="Move Up"/>
-                <button name="action_pos_sequence_down" 
-                        string="Move Down" 
-                        type="object" 
-                        icon="oi-arrow-down" 
+                <button name="action_pos_sequence_down"
+                        string="Move Down"
+                        type="object"
+                        icon="arrow_downward"
                         class="p-0 border-0"
                         groups="point_of_sale.group_pos_user"
                         title="Move Down"/>
+                <button name="action_pos_sequence_bottom"
+                        string="Move to Bottom"
+                        type="object"
+                        icon="keyboard_double_arrow_down"
+                        class="p-0 border-0 text-muted"
+                        groups="point_of_sale.group_pos_user"
+                        title="Move to Bottom"/>
+            </field>
+            <!-- Allow showing the numeric POS sequence column optionally -->
+            <field name="pos_sequence" position="attributes">
+                <attribute name="optional">show</attribute>
             </field>
         </field>
+    </record>
+
+    <!-- Bulk Server Actions in the Product Template "Action" Menu -->
+    <record id="action_server_pos_seq_move_top" model="ir.actions.server">
+        <field name="name">POS Sequence: Move Selected to Top</field>
+        <field name="model_id" ref="product.model_product_template"/>
+        <field name="binding_model_id" ref="product.model_product_template"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">records.action_pos_sequence_top()</field>
+    </record>
+
+    <record id="action_server_pos_seq_move_bottom" model="ir.actions.server">
+        <field name="name">POS Sequence: Move Selected to Bottom</field>
+        <field name="model_id" ref="product.model_product_template"/>
+        <field name="binding_model_id" ref="product.model_product_template"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">records.action_pos_sequence_bottom()</field>
+    </record>
+
+    <record id="action_server_pos_seq_sort_alpha" model="ir.actions.server">
+        <field name="name">POS Sequence: Sort Selected Alphabetically (A → Z)</field>
+        <field name="model_id" ref="product.model_product_template"/>
+        <field name="binding_model_id" ref="product.model_product_template"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">records.action_pos_sequence_sort_alpha()</field>
+    </record>
+
+    <record id="action_server_pos_seq_sort_price" model="ir.actions.server">
+        <field name="name">POS Sequence: Sort Selected by Price (Low → High)</field>
+        <field name="model_id" ref="product.model_product_template"/>
+        <field name="binding_model_id" ref="product.model_product_template"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">records.action_pos_sequence_sort_price()</field>
+    </record>
+
+    <record id="action_server_pos_seq_normalize" model="ir.actions.server">
+        <field name="name">POS Sequence: Normalize All (10, 20, 30...)</field>
+        <field name="model_id" ref="product.model_product_template"/>
+        <field name="binding_model_id" ref="product.model_product_template"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">records.action_pos_sequence_normalize_step10()</field>
     </record>
 </odoo>
